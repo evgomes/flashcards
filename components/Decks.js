@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity } from "react-native"
 import { Card, CardItem, Text, Body } from 'native-base'
 import { connect } from 'react-redux'
 import { handleGetAllDecks } from '../actions/decks'
-import { isObjectEmpty } from '../helpers/common'
+import { isObjectEmpty, buildDeckSubtitle } from '../helpers/common'
 import Loading from '../components/Loading'
 
 class Decks extends Component {
@@ -18,28 +18,18 @@ class Decks extends Component {
         }, 1000)
     }
 
-    getSubtitle = ({ questions }) => {
-        const cardsNumber = questions.length
-
-        if (cardsNumber === 0) {
-            return 'no cards'
-        }
-
-        return `${cardsNumber} ${cardsNumber === 1 ? 'card': 'cards'}`
-    }
-
     render() {
         const { decks } = this.props
 
         if (isObjectEmpty(decks)) {
-            this.deckNotFound()
+            //this.deckNotFound()
             return <Text>No deck avaliable</Text>
         }
 
         return (
-            <Fragment>                
+            <Fragment>
                 {Object.keys(decks).map(key => (
-                    <TouchableOpacity key={key} onPress={() => alert('It works')}>
+                    <TouchableOpacity key={key} onPress={() => this.props.onDeckDetail(key)}>
                         <Card>
                             <CardItem>
                                 <Body>
@@ -47,7 +37,7 @@ class Decks extends Component {
                                         {decks[key].title}
                                     </Text>
                                     <Text>
-                                        {this.getSubtitle(decks[key])}
+                                        {buildDeckSubtitle(decks[key])}
                                     </Text>
                                 </Body>
                             </CardItem>

@@ -2,11 +2,13 @@ import React from 'react'
 import { createStackNavigator, createAppContainer } from "react-navigation"
 import Home from './Home'
 import NewDeck from './NewDeck'
+import DeckDetail from './DeckDetail'
 
 
 export const StackNavigator = createStackNavigator({
     Home: Home,
-    NewDeck: NewDeck
+    NewDeck: NewDeck,
+    DeckDetail: DeckDetail
 }, {
         initialRouteName: 'Home',
         defaultNavigationOptions: {

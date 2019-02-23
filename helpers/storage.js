@@ -4,12 +4,13 @@ import * as uuid from 'uuid'
 const DECKS = 'DECKS'
 
 export const getDecks = async () => {
-    const decks = await AsyncStorage.getItem(DECKS)   
+    const decks = await AsyncStorage.getItem(DECKS)
     return decks !== null ? JSON.parse(decks) : {}
 }
 
-export const getDeck = () => {
-
+export const getDeck = async (id) => {
+    const decks = await getDecks()
+    return decks[id]
 }
 
 export const saveDeckTitle = async (title) => {

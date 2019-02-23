@@ -12,11 +12,15 @@ class Home extends Component {
         this.props.navigation.navigate('NewDeck')
     }
 
+    onDeckDetail = (id) => {
+        this.props.navigation.navigate('DeckDetail', { id })
+    }
+
     render() {
         return (
             <Container style={styles.container}>
                 <Content style={styles.content}>
-                    <Decks onDeckNotFound={this.onDeckNotFound}/>
+                    <Decks onDeckNotFound={this.onDeckNotFound} onDeckDetail={this.onDeckDetail} />
                 </Content>
                 <Footer>
                     <FooterTab>

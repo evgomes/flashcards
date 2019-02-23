@@ -13,7 +13,7 @@ class NewDeck extends Component {
         title: ''
     }
 
-    onTitleChange = (e) =>{
+    onTitleChange = (e) => {
         const title = e.nativeEvent.text
         this.setState({
             title
@@ -28,11 +28,11 @@ class NewDeck extends Component {
     render() {
         return (
             <Container style={styles.container}>
-                <Content>
+                <Content style={styles.content}>
                     <Text style={styles.title}>
                         What is the title of your new deck?
                     </Text>
-                    <Form style={styles.form}>
+                    <Form >
                         <Form>
                             <Item>
                                 <Input error placeholder="Ex: Javascript" value={this.state.title} onChange={this.onTitleChange} />
@@ -67,10 +67,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#D4DBED',
     },
 
-    form: {
+    content: {
         backgroundColor: '#FFF',
         padding: 10,
-        margin: 10,
+        margin: 15,
         borderRadius: 10
     },
 
