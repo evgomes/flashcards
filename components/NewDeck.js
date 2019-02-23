@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
 import { Container, Content, Footer, FooterTab, Button, Text, Form, Item, Input } from "native-base"
+import { connect } from 'react-redux'
+import { handleSaveDeck } from '../actions/decks'
 
 class NewDeck extends Component {
     static navigationOptions = {
@@ -16,6 +18,11 @@ class NewDeck extends Component {
         this.setState({
             title
         })
+    }
+
+    onSaveDeck = () => {
+        this.props.saveDeck(this.state.title)
+        this.props.navigation.navigate('Home')
     }
 
     render() {
@@ -35,7 +42,7 @@ class NewDeck extends Component {
                 </Content>
                 <Footer>
                     <FooterTab>
-                        <Button disabled={this.state.title === ''} full onPress={() => alert(this.state.title)}>
+                        <Button disabled={this.state.title === ''} full onPress={this.onSaveDeck}>
                             <Text>Add</Text>
                         </Button>
                     </FooterTab>
@@ -45,7 +52,15 @@ class NewDeck extends Component {
     }
 }
 
-export default NewDeck
+function mapDispatchToProps(dispatch) {
+    return {
+        saveDeck: (title) => {
+            dispatch(handleSaveDeck(title))
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(NewDeck)
 
 const styles = StyleSheet.create({
     container: {

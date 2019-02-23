@@ -1,30 +1,31 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
-import { Content, Footer, FooterTab, Button, Text } from 'native-base'
-import Toolbar from './Toolbar'
+import { Container, Content, Footer, FooterTab, Button, Text } from 'native-base'
 import Decks from './Decks'
 
 class Home extends Component {
     static navigationOptions = {
         title: 'Decks',
     }
-    
+
+    onDeckNotFound = () => {
+        this.props.navigation.navigate('NewDeck')
+    }
+
     render() {
         return (
-            <Fragment>
+            <Container style={styles.container}>
                 <Content style={styles.content}>
-                    <Decks />
-                    <Decks />
-                    <Decks />
+                    <Decks onDeckNotFound={this.onDeckNotFound}/>
                 </Content>
                 <Footer>
                     <FooterTab>
-                        <Button full>
+                        <Button full onPress={() => this.props.navigation.navigate('NewDeck')}>
                             <Text>New Deck</Text>
                         </Button>
                     </FooterTab>
                 </Footer>
-            </Fragment>
+            </Container>
         );
     }
 }
@@ -32,6 +33,10 @@ class Home extends Component {
 export default Home
 
 const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#D4DBED'
+    },
+
     content: {
         padding: 10
     }
