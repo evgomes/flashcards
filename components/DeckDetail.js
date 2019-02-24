@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { View } from 'react-native'
 import { StyleSheet } from "react-native"
 import { connect } from 'react-redux'
 import { Container, Content, Footer, FooterTab, Button, Text } from "native-base"
@@ -7,12 +8,17 @@ import { buildDeckSubtitle, isObjectEmpty } from '../helpers/common'
 
 class DeckDetail extends Component {
     static navigationOptions = {
-        title: 'DeckDetail',
+        title: "Deck's detail",
     }
 
     componentDidMount() {
         const { id } = this.props.navigation.state.params
         this.props.getDeckDetail(id)
+    }
+
+    onAddNewCard = () => {
+        const { id } = this.props.navigation.state.params
+        this.props.navigation.navigate('AddCard', { id })
     }
 
     render() {
@@ -24,29 +30,32 @@ class DeckDetail extends Component {
 
         return (
             <Container style={styles.container}>
-                <Content style={styles.content}>
+                <View style={styles.content}>
                     <Text style={styles.title}>
                         {deckDetail.title}
                     </Text>
                     <Text style={styles.subtitle}>
                         {buildDeckSubtitle(deckDetail)}
                     </Text>
-                </Content>
-                <Footer>
-                    <FooterTab>
-                        <Button>
-                            <Text>Add Card</Text>
+                    <View style={styles.buttonsContainer}>
+                        <Button rounded block style={styles.button}>
+                            <Text>
+                                Start Quiz
+                            </Text>
                         </Button>
-                    </FooterTab>
-                </Footer>
+                        <Button rounded success block style={styles.button} onPress={this.onAddNewCard}>
+                            <Text>
+                                Add Card
+                            </Text>
+                        </Button>
+                    </View>
+                </View>
             </Container>
         );
     }
 }
 
 function mapStateToProps({ deckDetail }) {
-    console.log(deckDetail);
-
     return {
         deckDetail
     }
@@ -64,10 +73,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(DeckDetail)
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#edf0f7',        
-    },    
+        backgroundColor: '#edf0f7',
+    },
 
     content: {
+        flex: 1,
+        alignItems: 'stretch',
         backgroundColor: '#FFF',
         padding: 10,
         margin: 15,
@@ -77,7 +88,7 @@ const styles = StyleSheet.create({
     title: {
         textAlign: 'center',
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 35,
         marginTop: 30,
         color: '#13244E'
     },
@@ -87,5 +98,15 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginTop: 30,
         color: 'black'
+    },
+
+    buttonsContainer: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        marginBottom: 36,
+    },
+
+    button: {
+        marginTop: 15
     }
 })

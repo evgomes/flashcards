@@ -28,6 +28,14 @@ export const saveDeckTitle = async (title) => {
     return newData
 }
 
-export const addCardToDeck = () => {
+export const addCardToDeck = async (id, question, answer) => {
+    const decks = await getDecks()
+    const deck = decks[id]
+    deck.questions.push({
+        question, answer
+    })
 
+    AsyncStorage.setItem(DECKS, JSON.stringify(decks))
+
+    return decks
 }

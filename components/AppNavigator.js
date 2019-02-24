@@ -3,12 +3,14 @@ import { createStackNavigator, createAppContainer } from "react-navigation"
 import Home from './Home'
 import NewDeck from './NewDeck'
 import DeckDetail from './DeckDetail'
+import AddCard from './AddCard'
 
 
 export const StackNavigator = createStackNavigator({
     Home: Home,
     NewDeck: NewDeck,
-    DeckDetail: DeckDetail
+    DeckDetail: DeckDetail,
+    AddCard: AddCard
 }, {
         initialRouteName: 'Home',
         defaultNavigationOptions: {
