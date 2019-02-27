@@ -21,6 +21,10 @@ class DeckDetail extends Component {
         this.props.navigation.navigate('AddCard', { id })
     }
 
+    onStartQuiz = () => {
+        this.props.navigation.navigate('Quiz')
+    }
+
     render() {
         const { deckDetail } = this.props
 
@@ -38,7 +42,7 @@ class DeckDetail extends Component {
                         {buildDeckSubtitle(deckDetail)}
                     </Text>
                     <View style={styles.buttonsContainer}>
-                        <Button rounded block style={styles.button}>
+                        <Button rounded block style={styles.button} onPress={this.onStartQuiz}>
                             <Text>
                                 Start Quiz
                             </Text>

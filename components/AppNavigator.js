@@ -4,13 +4,14 @@ import Home from './Home'
 import NewDeck from './NewDeck'
 import DeckDetail from './DeckDetail'
 import AddCard from './AddCard'
-
+import Quiz from './Quiz'
 
 export const StackNavigator = createStackNavigator({
     Home: Home,
     NewDeck: NewDeck,
     DeckDetail: DeckDetail,
-    AddCard: AddCard
+    AddCard: AddCard,
+    Quiz: Quiz
 }, {
         initialRouteName: 'Home',
         defaultNavigationOptions: {
