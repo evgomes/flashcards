@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { View, StyleSheet, Animated, TouchableNativeFeedback } from 'react-native'
 import { connect } from 'react-redux'
-import { Container, Button, Text, Footer, FooterTab, Badge } from 'native-base'
+import { Container, Button, Text, Footer, FooterTab } from 'native-base'
+import Card from './Card'
 
 class Quiz extends Component {
     static navigationOptions = {
@@ -53,39 +54,40 @@ class Quiz extends Component {
         }
 
         return (
-            <Container style={styles.container}>
-                <View style={{ padding: 10 }}>
-                    <Badge style={{ backgroundColor: '#004d00' }}   >
-                        <Text>1/2</Text>
-                    </Badge>
+            <Fragment>
+                <View style={styles.infoContainer}>
+                    <View style={styles.progressText}>
+                        <Text style={{ color: '#FFF' }}>2/2</Text>
+                    </View>
+                    <View style={styles.percentageText}>
+                        <Text style={{ color: '#FFF' }}>80%</Text>
+                    </View>
                 </View>
-                <View style={styles.container}>
-                    <TouchableNativeFeedback onPress={this.flipCard}>
-                        <View>
-                            <Animated.View style={[styles.flipCard, frontAnimatedStyle, { opacity: this.frontOpacity }]}>
-                                <Text style={styles.flipText}>
-                                    This text is flipping on the front.
-                            </Text>
-                            </Animated.View>
-                            <Animated.View style={[styles.flipCard, styles.flipCardBack, backAnimatedStyle, { opacity: this.backOpacity }]}>
-                                <Text style={styles.flipText}>
-                                    This text is flipping on the back.
-                            </Text>
-                            </Animated.View>
-                        </View>
-                    </TouchableNativeFeedback>
-                </View>
-                <Footer>
-                    <FooterTab>
-                        <Button style={{ backgroundColor: '#004d00' }} full success onPress={this.flipCard}>
-                            <Text style={{ color: '#FFF' }}>Correct</Text>
-                        </Button>
-                        <Button style={{ backgroundColor: '#b30000' }} full danger onPress={this.flipCard}>
-                            <Text style={{ color: '#FFF' }}>Incorrect</Text>
-                        </Button>
-                    </FooterTab>
-                </Footer>
-            </Container>
+                <Container style={styles.container}>
+                    <View style={styles.container}>
+                        <TouchableNativeFeedback onPress={this.flipCard}>
+                            <View>
+                                <Animated.View style={[styles.flipCard, frontAnimatedStyle, { opacity: this.frontOpacity }]}>
+                                    <Card content="This text is flipping on the front." />
+                                </Animated.View>
+                                <Animated.View style={[styles.flipCard, styles.flipCardBack, backAnimatedStyle, { opacity: this.backOpacity }]}>
+                                    <Card content="This text is flipping on the back." />
+                                </Animated.View>
+                            </View>
+                        </TouchableNativeFeedback>
+                    </View>
+                    <Footer>
+                        <FooterTab>
+                            <Button style={styles.correctButton} full success onPress={this.flipCard}>
+                                <Text style={{ color: '#FFF' }}>Correct</Text>
+                            </Button>
+                            <Button style={styles.incorrectButton} full danger onPress={this.flipCard}>
+                                <Text style={{ color: '#FFF' }}>Incorrect</Text>
+                            </Button>
+                        </FooterTab>
+                    </Footer>
+                </Container>
+            </Fragment>
         )
     }
 }
@@ -107,29 +109,50 @@ function mapDipatchToProps(dispatch) {
 export default connect(mapStateToProps, mapDipatchToProps)(Quiz)
 
 const styles = StyleSheet.create({
+    infoContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 10,
+        backgroundColor: '#13244E'
+    },
+
+    progressText: {
+        color: '#FFF',
+        marginLeft: 10,
+        fontWeight: 'bold'
+    },
+
+    percentageText: {
+        color: '#FFF',
+        marginLeft: 10,
+        fontWeight: 'bold',
+    },
+
     container: {
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
     },
+
     flipCard: {
         width: 300,
         height: 300,
         borderRadius: 15,
-        alignItems: 'center',
-        justifyContent: 'center',
         backgroundColor: '#13244E',
         backfaceVisibility: 'hidden',
     },
+
     flipCardBack: {
         backgroundColor: "#b30000",
         position: "absolute",
         top: 0,
     },
-    flipText: {
-        width: 150,
-        fontSize: 20,
-        color: 'white',
-        fontWeight: 'bold',
+
+    correctButton: {
+        backgroundColor: '#004d00'
+    },
+
+    incorrectButton: {
+        backgroundColor: '#b30000'
     }
 });
