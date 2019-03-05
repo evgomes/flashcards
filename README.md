@@ -19,5 +19,5 @@ $ cd flashcards
 $ npm run
 ```
 
-You can run this app from your real devices, through throw Expo, or from simulator as Genymotion for example.
+You can run this app from your real devices, through Expo, or from simulator as Genymotion for example.
 Feel free to clone this repository for study or even build something better from this code.
