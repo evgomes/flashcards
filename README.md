@@ -8,7 +8,7 @@ Flashcard is a simple app made with React Native and it's a useful tool for self
 This is a required project to complete the course [React Nanodegree](https://br.udacity.com/course/react-nanodegree--nd019) by Udacity
 
 ### How to use
-*You need install react native installed, you can check the official guide to install react native and set the enviroment properly on [https://facebook.github.io/react-native/docs/getting-started.html](https://facebook.github.io/react-native/docs/getting-started.html)*
+*You need react native installed, so you can check the official guide to install react native and set the enviroment properly on [https://facebook.github.io/react-native/docs/getting-started.html](https://facebook.github.io/react-native/docs/getting-started.html)*
 
 Said that, follow the steps bellow:
 
