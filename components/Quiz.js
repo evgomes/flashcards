@@ -3,6 +3,7 @@ import { View, StyleSheet, Animated, TouchableNativeFeedback } from 'react-nativ
 import { connect } from 'react-redux'
 import { Container, Button, Text, Footer, FooterTab } from 'native-base'
 import Card from './Card'
+import { clearLocalNotification, setLocalNotification } from '../helpers/notifications'
 
 class Quiz extends Component {
     static navigationOptions = {
@@ -85,6 +86,10 @@ class Quiz extends Component {
                 quizFinished: true
             })
 
+            // Clearing old notification and then creating a new one
+            clearLocalNotification()
+                .then(setLocalNotification)
+
             return
         }
 
@@ -97,7 +102,7 @@ class Quiz extends Component {
     isQuizFinished = () => {
         const { quizFinished } = this.state
         const { navigation } = this.props
-        
+
         if (quizFinished) {
             setTimeout(() => {
                 navigation.goBack()

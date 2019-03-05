@@ -2,6 +2,7 @@ import { AsyncStorage } from "react-native"
 import * as uuid from 'uuid'
 
 const DECKS = 'DECKS'
+const NOTIFICATION_KEY = 'Flashcards:notifications'
 
 export const getDecks = async () => {
     const decks = await AsyncStorage.getItem(DECKS)
@@ -39,3 +40,17 @@ export const addCardToDeck = async (id, question, answer) => {
 
     return decks
 }
+
+export const getNotificationConfig = async () => {
+    const notification = await AsyncStorage.getItem(NOTIFICATION_KEY)
+    return JSON.parse(notification)
+}
+
+export const setNotificationConfig = () => {
+    AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+}
+
+export const removeNotificationConfig = () => {
+    return AsyncStorage.removeItem(NOTIFICATION_KEY)
+}
+

@@ -6,10 +6,15 @@ import reducer from './reducers'
 import middlewares from './middlewares'
 import { Provider } from 'react-redux'
 import AppNavigator from './components/AppNavigator'
+import { setLocalNotification } from './helpers/notifications'
 
 class App extends React.Component {
 
   state = { loading: true }
+
+  componentDidMount(){
+    setLocalNotification()
+  }
 
   async componentWillMount() {
     await Font.loadAsync({
