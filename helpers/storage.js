@@ -4,6 +4,11 @@ import * as uuid from 'uuid'
 const DECKS = 'DECKS'
 const NOTIFICATION_KEY = 'Flashcards:notifications'
 
+// Just for development purpose
+export const clearAll = async () => {
+    await AsyncStorage.clear()
+}
+
 export const getDecks = async () => {
     const decks = await AsyncStorage.getItem(DECKS)
     return decks !== null ? JSON.parse(decks) : {}
@@ -21,7 +26,8 @@ export const saveDeckTitle = async (title) => {
         ...decks,
         [id]: {
             title,
-            questions: []
+            questions: [],
+            historyQuiz: []
         }
     }
 
@@ -34,6 +40,20 @@ export const addCardToDeck = async (id, question, answer) => {
     const deck = decks[id]
     deck.questions.push({
         question, answer
+    })
+
+    AsyncStorage.setItem(DECKS, JSON.stringify(decks))
+
+    return decks
+}
+
+export const addQuizHistory = async (id, score, numberOfQuestions) => {
+    const decks = await getDecks()
+    const deck = decks[id]
+    const date = Date.now()
+    
+    deck.historyQuiz.push({
+        score, numberOfQuestions, date
     })
 
     AsyncStorage.setItem(DECKS, JSON.stringify(decks))

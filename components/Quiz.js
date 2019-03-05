@@ -3,7 +3,7 @@ import { View, StyleSheet, Animated, TouchableNativeFeedback } from 'react-nativ
 import { connect } from 'react-redux'
 import { Container, Button, Text, Footer, FooterTab } from 'native-base'
 import Card from './Card'
-import { clearLocalNotification, setLocalNotification } from '../helpers/notifications'
+import { handleAddQuizHistory } from '../actions/deckDetail'
 
 class Quiz extends Component {
     static navigationOptions = {
@@ -86,9 +86,10 @@ class Quiz extends Component {
                 quizFinished: true
             })
 
-            // Clearing old notification and then creating a new one
-            clearLocalNotification()
-                .then(setLocalNotification)
+            const { id } = this.props.navigation.state.params
+            const { questions } = this.props.deckDetail
+            const score = `${(updateCorrectQuestions * 100) / questions.length}%`
+            this.props.addQuizHistory(id, score, questions.length)
 
             return
         }
@@ -99,21 +100,9 @@ class Quiz extends Component {
         })
     }
 
-    isQuizFinished = () => {
-        const { quizFinished } = this.state
-        const { navigation } = this.props
-
-        if (quizFinished) {
-            setTimeout(() => {
-                navigation.goBack()
-            }, 2000)
-        }
-
-        return quizFinished
-    }
-
     render() {
-        if (this.isQuizFinished()) {
+        const { quizFinished } = this.state
+        if (quizFinished) {
             return (
                 <Fragment>
                     <View style={styles.finishQuizContainer}>
@@ -184,7 +173,9 @@ function mapStateToProps({ deckDetail }) {
 
 function mapDipatchToProps(dispatch) {
     return {
-
+        addQuizHistory: (id, score, numberOfQuestions) => {
+            dispatch(handleAddQuizHistory(id, score, numberOfQuestions))
+        }
     }
 }
 

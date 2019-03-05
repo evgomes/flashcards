@@ -7,12 +7,15 @@ import middlewares from './middlewares'
 import { Provider } from 'react-redux'
 import AppNavigator from './components/AppNavigator'
 import { setLocalNotification } from './helpers/notifications'
+import { clearAll } from './helpers/storage'
 
 class App extends React.Component {
 
   state = { loading: true }
 
   componentDidMount(){
+    // Just for development purpose
+    //clearAll()
     setLocalNotification()
   }
 

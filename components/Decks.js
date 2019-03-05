@@ -12,17 +12,10 @@ class Decks extends Component {
         this.props.getAllDecks()
     }
 
-    deckNotFound = () => {
-        setTimeout(() => {
-            this.props.onDeckNotFound()
-        }, 1000)
-    }
-
     render() {
         const { decks } = this.props
 
-        if (isObjectEmpty(decks)) {
-            //this.deckNotFound()
+        if (isObjectEmpty(decks)) {            
             return <Text>No deck avaliable</Text>
         }
 
